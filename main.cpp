@@ -18,7 +18,7 @@ using namespace std;
 int main() {
   //Input cstring
   char* cmd = new char[100];
-  Node start(NULL); //NULL means start or end of the chain
+  Node* start = new Node(new Student(-1)); //-1 means start or end of the chain
   int iter = 0;
   
   cout << "This is a repurposed version of my old \"student list\" program, meant to showcase my \"Node\" object." << endl; 
@@ -39,7 +39,7 @@ int main() {
 	(cmd[2] == 'D' || cmd[2] == 'd')) {
 
       
-      Student s;
+      Student* s = new Student();
       char* name = new char[100];
       char* surname = new char[100];
       int id;
@@ -58,9 +58,9 @@ int main() {
       cout << "Student GPA: ";
       cin >> gpa; cin.clear(); cin.ignore(100, '\n');
 
-      s.setName(name, surname);
-      s.setID(id);
-      s.setGPA(gpa);
+      s->setName(name, surname);
+      s->setID(id);
+      s->setGPA(gpa);
       
       cout << "-----" << endl;
       /*
@@ -78,17 +78,16 @@ int main() {
 	*/
       Node* n;
       Node* m;
-      m = &start;
-      n = m;
+      m = start;
 
-      //This is all to try and get the last Node in the chain
+      //This is all to try and get to the last Node in the chain
       for (int i = 0; i < iter; i++) {
       	n = m;
 	m = n->getNext();
 	//cout << i << endl;
       }
 
-      Node* o = new Node(new Student());
+      Node* o = new Node(s);
       m->setNext(o);
       //cout << m->getNext()->getStudent()->getID() << endl;
       
@@ -106,17 +105,18 @@ int main() {
       cout << "-----" << endl;
       //char zeroes[6];
       
-      Node *n;
-      Node *m;
-      n* = start;
+      Node* n;
+      Node* m;
+      n = start;
       m = n;
+
       //Go through the chain and print all o' them kids
       for (int i = 0; i < iter; i++) {
 	n = m;
 	cout << "Student #" << i+1 << ":" << endl;
-	cout << "Name: " << n->getNext()->getStudent()->getName()
-	     << "ID: " << n->getNext()->getStudent()->getID()
-	     << "GPA: " << n->getNext()->getStudent()->getName() << endl << endl;
+	cout << "Name: " << n->getNext()->getStudent()->getName() << endl
+	     << "ID: " << n->getNext()->getStudent()->getID() << endl
+	     << "GPA: " << n->getNext()->getStudent()->getGPA() << endl << endl;
 	m = n->getNext();
       }
       
