@@ -10,12 +10,16 @@ class Student {
 
  public:
   //Constructor & Destructor
-  Student(int id);
+  Student();
   ~Student();
   
   //Functions
+  void setName(char* name, char* surname);
+  char* getName();
   void setID(int id);
   int getID();
+  void setGPA(float gpa);
+  float getGPA();
 
  private:
   //Student info

@@ -26,7 +26,7 @@ int main() {
   
   while (true) {
     
-    cout << endl << "Commands: " << endl << "ADD" << endl << "PRINT" << end << "DELETE" << endl << "QUIT" << endl;
+    cout << endl << "Commands: " << endl << "ADD" << endl << "PRINT" << endl << "DELETE" << endl << "QUIT" << endl;
     
     cout << "> ";
     
@@ -37,7 +37,9 @@ int main() {
     if ((cmd[0] == 'A' || cmd[0] == 'a') &&
 	(cmd[1] == 'D' || cmd[1] == 'd') &&
 	(cmd[2] == 'D' || cmd[2] == 'd')) {
+
       
+      Student s;
       char* name = new char[100];
       char* surname = new char[100];
       int id;
@@ -54,11 +56,13 @@ int main() {
       cin >> id; cin.clear(); cin.ignore(100, '\n');
       
       cout << "Student GPA: ";
-      cin >> gpa;
+      cin >> gpa; cin.clear(); cin.ignore(100, '\n');
+
+      s.setName(name, surname);
+      s.setID(id);
+      s.setGPA(gpa);
       
-      //Add custom child to the list
-      list.push_back(add(name, surname, id, gpa));
-      cin.ignore();
+      cout << "-----" << endl;
       /*
 	Node *n;
 	n = &start;
@@ -73,17 +77,17 @@ int main() {
 	*n->getNext()->setNext(m.getNext());
 	*/
       Node* n;
-      Node *m;
+      Node* m;
       m = &start;
       n = m;
 
       //This is all to try and get the last Node in the chain
       for (int i = 0; i < iter; i++) {
-      	n = *m;
+      	n = m;
 	m = n->getNext();
 	//cout << i << endl;
       }
-      
+
       Node* o = new Node(new Student());
       m->setNext(o);
       //cout << m->getNext()->getStudent()->getID() << endl;
@@ -98,20 +102,25 @@ int main() {
 	(cmd[2] == 'I' || cmd[2] == 'i') &&
 	(cmd[3] == 'N' || cmd[3] == 'n') &&
 	(cmd[4] == 'T' || cmd[4] == 't')) {
-	
+
+      cout << "-----" << endl;
       //char zeroes[6];
       
       Node *n;
       Node *m;
-      n = &start;
-      m = &start;
+      n* = start;
+      m = n;
       //Go through the chain and print all o' them kids
       for (int i = 0; i < iter; i++) {
 	n = m;
-	cout << "Student #" << i+1 << ":" << endl << "ID: " << n->getNext()->getStudent()->getID() << endl;
+	cout << "Student #" << i+1 << ":" << endl;
+	cout << "Name: " << n->getNext()->getStudent()->getName()
+	     << "ID: " << n->getNext()->getStudent()->getID()
+	     << "GPA: " << n->getNext()->getStudent()->getName() << endl << endl;
 	m = n->getNext();
       }
       
+      cout << "-----" << endl;
     }
 
     //Delete a student
@@ -121,7 +130,7 @@ int main() {
 	(cmd[3] == 'E' || cmd[3] == 'e') &&
 	(cmd[4] == 'T' || cmd[4] == 't') &&
 	(cmd[5] == 'E' || cmd[5] == 'e')) {
-
+      /*
       int id;
 
       cout << endl << "-----" << endl;
@@ -129,8 +138,6 @@ int main() {
       cout << "Student ID: ";
       cin >> id;
       cin.ignore();
-
-      id = find(list, id); //Id is now the address of the to-be-deleted student
       
       if (id != -1) {
 	for (int i = id; i < list.size() - 1; i++) { //Because XCode doesn't seem to like vector.erase(id)
@@ -144,7 +151,7 @@ int main() {
       }
       
       cout << "-----" << endl;
-
+      */
     }
 
     //Kill the program

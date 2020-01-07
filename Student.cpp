@@ -2,12 +2,11 @@
 
 Student::Student() {}
 
-Student::~Student() {
-  cout << getName() << " says goodbye." << endl;
-}
+Student::~Student() {}
 
 void Student::setName(char* name, char* surname) {
-  this->name = name << " " << surname;
+  //char fullName[100];
+  this->name = name;
 }
 
 char* Student::getName() {
