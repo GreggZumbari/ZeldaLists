@@ -6,16 +6,20 @@
  *
  * Previously, this was done with vectors. Now that I'm all grown up, I'm using my own thing called nodes! I'm using Austyn Ngo's code for the Node object, but you get the idea.
  *  
- * @author Greggory Hickman
- * @version dev 1.0
+ * @author Greggory Hickman, Dec-Jan 2019
+ * @version dev 2.0
  */
 #include <iostream>
+#include <iomanip>
 #include "Student.h"
 #include "Node.h"
 
 using namespace std;
 
 int main() {
+  //Print all floats to the hundredth's place
+  cout << setprecision(2) << fixed;
+  
   //Input cstring
   char* cmd = new char[100];
   Node* start = new Node(new Student(-1)); //-1 means start or end of the chain
@@ -26,7 +30,7 @@ int main() {
   
   while (true) {
     
-    cout << endl << "Commands: " << endl << "ADD" << endl << "PRINT" << endl << "DELETE" << endl << "QUIT" << endl;
+    cout << endl << "Commands: " << endl << "ADD" << endl << "PRINT" << endl << "DELETE" << endl << "MEAN" << endl << "QUIT" << endl;
     
     cout << "> ";
     
@@ -38,7 +42,7 @@ int main() {
 	(cmd[1] == 'D' || cmd[1] == 'd') &&
 	(cmd[2] == 'D' || cmd[2] == 'd')) {
 
-      
+      //Make all of this in a method, because recursion requires
       Student* s = new Student();
       char* name = new char[100];
       char* surname = new char[100];
@@ -58,7 +62,8 @@ int main() {
       cout << "Student GPA: ";
       cin >> gpa; cin.clear(); cin.ignore(100, '\n');
 
-      s->setName(name, surname);
+      s->setName(name);
+      s->setSurname(surname);
       s->setID(id);
       s->setGPA(gpa);
       
@@ -113,8 +118,8 @@ int main() {
       //Go through the chain and print all o' them kids
       for (int i = 0; i < iter; i++) {
 	n = m;
-	cout << "Student #" << i+1 << ":" << endl;
-	cout << "Name: " << n->getNext()->getStudent()->getName() << endl
+	cout << "Student #" << i+1 << ":" << endl
+	     << "Name: " << n->getNext()->getStudent()->getName() << " " << n->getNext()->getStudent()->getSurname() << endl
 	     << "ID: " << n->getNext()->getStudent()->getID() << endl
 	     << "GPA: " << n->getNext()->getStudent()->getGPA() << endl << endl;
 	m = n->getNext();

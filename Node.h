@@ -1,5 +1,6 @@
 /*
  * This is an extremely simple Node object whose main ability is to point to another one of itself; another Node. This allows for a long chain of Nodes, each one pointing to the next. Each node may also contain a Student, 
+ * @author Greggory Hickman, January 2019
  */
 #ifndef NODE_H
 #define NODE_H
