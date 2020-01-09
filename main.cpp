@@ -16,6 +16,9 @@
 
 using namespace std;
 
+//Prototypes
+void add(Node* start, Node* newNode);
+
 int main() {
   //Print all floats to the hundredth's place
   cout << setprecision(2) << fixed;
@@ -42,7 +45,8 @@ int main() {
 	(cmd[1] == 'D' || cmd[1] == 'd') &&
 	(cmd[2] == 'D' || cmd[2] == 'd')) {
 
-      //Make all of this in a method, because recursion requires
+      cout << "-----" << endl;
+      
       Student* s = new Student();
       char* name = new char[100];
       char* surname = new char[100];
@@ -61,42 +65,17 @@ int main() {
       
       cout << "Student GPA: ";
       cin >> gpa; cin.clear(); cin.ignore(100, '\n');
-
+      
       s->setName(name);
       s->setSurname(surname);
       s->setID(id);
       s->setGPA(gpa);
-      
-      cout << "-----" << endl;
-      /*
-	Node *n;
-	n = &start;
-	Node m = *n;
-	
-	//Cycle through the chain until *n is the very last Node in the chain
-	for (int i = 0; m.getNext()->getStudent()->getID() != -1; i++) {
-	*n = *n->getNext();
-	Node m = *n;
-	}
-	//Once that has happened, add a new link to the end
-	*n->getNext()->setNext(m.getNext());
-	*/
-      Node* n;
-      Node* m;
-      m = start;
 
-      //This is all to try and get to the last Node in the chain
-      for (int i = 0; i < iter; i++) {
-      	n = m;
-	m = n->getNext();
-	//cout << i << endl;
-      }
-
-      Node* o = new Node(s);
-      m->setNext(o);
-      //cout << m->getNext()->getStudent()->getID() << endl;
+      Node* newNode = new Node(s);
       
-      iter++;
+      add(start, newNode);
+      
+      cout << "-----" << endl;      
       
     }
       
@@ -107,7 +86,6 @@ int main() {
 	(cmd[3] == 'N' || cmd[3] == 'n') &&
 	(cmd[4] == 'T' || cmd[4] == 't')) {
 
-      cout << "-----" << endl;
       //char zeroes[6];
       
       Node* n;
@@ -125,7 +103,6 @@ int main() {
 	m = n->getNext();
       }
       
-      cout << "-----" << endl;
     }
 
     //Delete a student
@@ -167,8 +144,43 @@ int main() {
       cout << endl << "Okay, bye. Thank you for donating to the Child Storage Association (CSA)!" << endl;
       return 0;
     }
-    
+
+    cout << "-----" << endl;
   }
+}
+
+void add(Node* start, Node* newNode) {
+  //Make all of this in a method!!!
+  int iter = 0;
+
+  /*
+  Node* n;
+  n = &start;
+  Node* m = n;
+  
+  //Cycle through the chain until *n is the very last Node in the chain
+  for (int i = 0; m.getNext()->getStudent()->getID() != -1; i++) {
+    *n = *n->getNext();
+    Node m = *n;
+  }
+  //Once that has happened, add a new link to the end
+  *n->getNext()->setNext(m.getNext());
+  Node* n;
+  Node* m;
+  m = start;
+  
+  //This is all to try and get to the last Node in the chain
+  for (int i = 0; i < iter; i++) {
+    n = m;
+    m = n->getNext();
+    //cout << i << endl;
+  }
+  
+  Node* o = new Node(s);
+  m->setNext(o);
+  //cout << m->getNext()->getStudent()->getID() << endl;
+  */
+  iter++;
 }
 
 /*

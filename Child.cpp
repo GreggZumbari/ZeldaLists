@@ -23,8 +23,9 @@ struct Child {
 };
 */
 
-/*
+
 //Prototypes
+/*
 Child add(char* name, char* surname, int id, float gpa);
 int find(vector<Child> list, int id);
 */
@@ -194,6 +195,8 @@ int main() {
     
   }
 }
+
+
 
 /*
 //Create a new Student, must return Child
