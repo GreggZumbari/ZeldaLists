@@ -5,11 +5,11 @@
 using namespace std;
 
 Student::Student() {
-  status = 0;
+  id = 0;
 }
 
-Student::Student(int status) {
-  this->status = status;
+Student::Student(int id) {
+  this->id = id;
 }
 
 Student::~Student() {}
@@ -72,8 +72,4 @@ void Student::setGPA(float gpa) {
 
 float Student::getGPA() {
   return gpa;
-}
-
-int Student::getStatus() {
-  return status;
 }

@@ -11,7 +11,7 @@ class Student {
  public:
   //Constructor & Destructor
   Student();
-  Student(int status);
+  Student(int id);
   ~Student();
   
   //Functions
@@ -23,7 +23,6 @@ class Student {
   int getID();
   void setGPA(float gpa);
   float getGPA();
-  int getStatus();
 
  private:
   //Student info
@@ -31,8 +30,6 @@ class Student {
   char* surname;
   int id;
   float gpa;
-
-  int status;
   
 };
 

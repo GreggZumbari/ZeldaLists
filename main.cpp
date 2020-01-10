@@ -1,8 +1,5 @@
 /* This program is a really crappy console application which can store the info of any number of students. Now with recursion!
- * You can add a student with the "ADD" command (none of these commands are case-sensitive), inputting their name, ID number, and 
- * GPA. You can print out the list of students logged in this session with the "PRINT" command, printing them out in the order that
- * they were logged. The "DELETE" command will delete a student by their ID number, and finally, the "QUIT" command will abort
- * the program, deleting all students stored inside.
+ * You can add a student with the "ADD" command (none of these commands are case-sensitive), inputting their name, ID number, and GPA. You can print out the list of students logged in this session with the "PRINT" command, printing them out in the order that they were logged. The "DELETE" command will delete a student by their ID number, and the MEAN command will return the average GPA. And finally, the "QUIT" command will abort the program, deleting all students stored inside.
  *
  * Previously, this was done with vectors. Now that I'm all grown up, I'm using my own thing called nodes! I'm using Austyn Ngo's code for the Node object, but you get the idea.
  *  
@@ -17,7 +14,8 @@
 using namespace std;
 
 //Prototypes
-void add(Node* start, Node* newNode);
+void add(Node* /*&*/head, Node* newNode);
+void insert(Node* /*&*/bef, Node* ins);
 
 int main() {
   //Print all floats to the hundredth's place
@@ -25,11 +23,12 @@ int main() {
   
   //Input cstring
   char* cmd = new char[100];
-  Node* start = new Node(new Student(-1)); //-1 means start or end of the chain
+  Node* head = new Node(new Student(-1)); //-1 means head or end of the chain
+  Node* end = new Node(new Student(-1));
   int iter = 0;
   
   cout << "This is a repurposed version of my old \"student list\" program, meant to showcase my \"Node\" object." << endl; 
-  cout << "Type in a command to get started." << endl;
+  cout << "Type in a command to get headed." << endl;
   
   while (true) {
     
@@ -44,16 +43,15 @@ int main() {
     if ((cmd[0] == 'A' || cmd[0] == 'a') &&
 	(cmd[1] == 'D' || cmd[1] == 'd') &&
 	(cmd[2] == 'D' || cmd[2] == 'd')) {
-
-      cout << "-----" << endl;
       
       Student* s = new Student();
       char* name = new char[100];
       char* surname = new char[100];
       int id;
       float gpa;
-      
-      cout << endl << "-----" << endl;
+
+      //Get parameters
+      cout << "-----" << endl;
       cout << "Student\'s first name: ";
       cin.getline(name, 100);
       
@@ -65,18 +63,21 @@ int main() {
       
       cout << "Student GPA: ";
       cin >> gpa; cin.clear(); cin.ignore(100, '\n');
-      
+      cout << endl;
+
+      //Put all o' that knowledge into a student
       s->setName(name);
       s->setSurname(surname);
       s->setID(id);
       s->setGPA(gpa);
 
+      //Make a new node with that student
       Node* newNode = new Node(s);
-      
-      add(start, newNode);
+
+      //Stick it into the borg collective
+      add(head, newNode);
       
       cout << "-----" << endl;      
-      
     }
       
     //List all current students
@@ -90,7 +91,7 @@ int main() {
       
       Node* n;
       Node* m;
-      n = start;
+      n = head;
       m = n;
 
       //Go through the chain and print all o' them kids
@@ -111,30 +112,7 @@ int main() {
 	(cmd[2] == 'L' || cmd[2] == 'l') &&
 	(cmd[3] == 'E' || cmd[3] == 'e') &&
 	(cmd[4] == 'T' || cmd[4] == 't') &&
-	(cmd[5] == 'E' || cmd[5] == 'e')) {
-      /*
-      int id;
-
-      cout << endl << "-----" << endl;
-
-      cout << "Student ID: ";
-      cin >> id;
-      cin.ignore();
-      
-      if (id != -1) {
-	for (int i = id; i < list.size() - 1; i++) { //Because XCode doesn't seem to like vector.erase(id)
-	  list[i] = list[i+1];
-	}
-	list.pop_back();
-	cout << "Thank you. " << list[id].name << " " << list[id].surname  << " has been successfully located and disposed of." << endl;
-      }
-      else {
-	cout << "No student with that ID currently exists" << endl;
-      }
-      
-      cout << "-----" << endl;
-      */
-    }
+	(cmd[5] == 'E' || cmd[5] == 'e')) {}
 
     //Kill the program
     if ((cmd[0] == 'Q' || cmd[0] == 'q') &&
@@ -149,13 +127,21 @@ int main() {
   }
 }
 
-void add(Node* start, Node* newNode) {
-  //Make all of this in a method!!!
-  int iter = 0;
-
+void add(Node* /*&*/head, Node* newNode) {
+  //Make all of this in a method for the order of the recursion!!!
+  cout << head->getNext()->getStudent()->getID() << endl;
+  /*if (head->getNext()->getStudent()->getID() >= newNode->getStudent()->getID()) {
+    insert(head, newNode);
+  }
+  else {
+    add(head->getNext(), newNode);
+    }*/
+  
+  //int iter = 0;
+  //iter++;
   /*
   Node* n;
-  n = &start;
+  n = &head;
   Node* m = n;
   
   //Cycle through the chain until *n is the very last Node in the chain
@@ -167,7 +153,7 @@ void add(Node* start, Node* newNode) {
   *n->getNext()->setNext(m.getNext());
   Node* n;
   Node* m;
-  m = start;
+  m = head;
   
   //This is all to try and get to the last Node in the chain
   for (int i = 0; i < iter; i++) {
@@ -180,7 +166,12 @@ void add(Node* start, Node* newNode) {
   m->setNext(o);
   //cout << m->getNext()->getStudent()->getID() << endl;
   */
-  iter++;
+}
+
+//Credit to Nick Feng for showing me that using an insert method would be way easier than just hardcoding it like the champion that I am
+void insert(Node* /*&*/bef, Node* ins) {
+  Node* af = bef->getNext();
+  cout << "Succ Cesspool" << endl;
 }
 
 /*
