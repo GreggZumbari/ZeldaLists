@@ -14,8 +14,8 @@
 using namespace std;
 
 //Prototypes
-void add(Node* &head, Node* newNode);
-void insert(Node* &bef, Node* ins);
+void add(Node* /*&*/head, Node* newNode);
+void insert(Node* /*&*/bef, Node* ins);
 
 int main() {
   //Print all floats to the hundredth's place
@@ -23,15 +23,12 @@ int main() {
   
   //Input cstring
   char* cmd = new char[100];
-  //The beginning and end of the chain
   Node* head = new Node(new Student(-1)); //-1 means head or end of the chain
-  Node* tail = new Node(new Student(-1));
-
-  //Connecting the head and the tail
-  head->setNext(tail);
+  Node* end = new Node(new Student(-1));
+  int iter = 0;
   
   cout << "This is a repurposed version of my old \"student list\" program, meant to showcase my \"Node\" object." << endl; 
-  cout << "Type in a command to get started." << endl;
+  cout << "Type in a command to get headed." << endl;
   
   while (true) {
     
@@ -98,7 +95,7 @@ int main() {
       m = n;
 
       //Go through the chain and print all o' them kids
-      for (int i = 0; i < 10; i++) {
+      for (int i = 0; i < iter; i++) {
 	n = m;
 	cout << "Student #" << i+1 << ":" << endl
 	     << "Name: " << n->getNext()->getStudent()->getName() << " " << n->getNext()->getStudent()->getSurname() << endl
@@ -130,23 +127,15 @@ int main() {
   }
 }
 
-void add(Node*& headr, Node* head, Node* newNode) {
-  //"headr" is the head passed by reference, and head is headr passed by pointer. We will not be using "headr" until the insert function. "newNode" is the newNode which will be inserted.
-  cout << head->getNext()->getStudent()->getID() << endl;
-  
+void add(Node* /*&*/head, Node* newNode) {
   //Make all of this in a method for the order of the recursion!!!
-  if ((head->getNext()->getStudent()->getID() == -1) ||
-      (head->getNext()->getStudent()->getID() >= newNode->getStudent()->getID())) {
-    cout << head->getNext()->getStudent()->getID() << ", insert"  << endl;
-    /*cout << "if" << endl;*/
-    insert(headr, head, newNode);
+  cout << head->getNext()->getStudent()->getID() << endl;
+  /*if (head->getNext()->getStudent()->getID() >= newNode->getStudent()->getID()) {
+    insert(head, newNode);
   }
   else {
-    cout << head->getNext()->getStudent()->getID() << ", again!"  << endl;
-    /*cout << "else" << endl;*/
-    
-    add(headr, head->getNext(), newNode);
-  }
+    add(head->getNext(), newNode);
+    }*/
   
   //int iter = 0;
   //iter++;
@@ -180,13 +169,26 @@ void add(Node*& headr, Node* head, Node* newNode) {
 }
 
 //Credit to Nick Feng for showing me that using an insert method would be way easier than just hardcoding it like the champion that I am
-void insert(Node*& headr; Node* bef, Node* ins) {
-  //"ins" is the node which is going to be inserted into "bef". "af" is the node which used to be after "bef", and will now come after "ins". Then once that it done, it will all be put back into headr, which is the original head node. Then it will all disappear, as though it had never existed in the first place. OOOOoooooOOOOooooooOOOOOOOOOOOooooooo!
+void insert(Node* /*&*/bef, Node* ins) {
   Node* af = bef->getNext();
   cout << "Succ Cesspool" << endl;
 }
 
 /*
+//Create a new Student, must return Child
+Child add(char* name, char* surname, int id, float gpa) {
+  Child c;
+  cout.precision(3);
+  c.name = name;
+  c.surname = surname;
+  c.id = id;
+  c.gpa = gpa;
+  cout << endl << "New Student Added: " << c.name << " " << c.surname << ", " << c.id << ", " << showpoint << c.gpa << endl;
+  cout << "Thank you for your donation." << endl;
+  cout << "-----" << endl;
+  return c;
+}
+
 //Return a child's iterator address in the list vector with the ID inputted.
 int find(vector<Child> list, int id) {
   for (int i = 0; i < list.size(); i++) {
