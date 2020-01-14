@@ -14,8 +14,8 @@
 using namespace std;
 
 //Prototypes
-void add(Node* &head, Node* newNode);
-void insert(Node* &bef, Node* ins);
+void add(Node*&, Node*, Node*);
+void print(Node*, int);
 
 int main() {
   //Print all floats to the hundredth's place
@@ -78,9 +78,7 @@ int main() {
       Node* newNode = new Node(s);
 
       //Stick it into the borg collective
-      add(head, newNode);
-      
-      cout << "-----" << endl;      
+      add(head, head, newNode);      
     }
       
     //List all current students
@@ -90,9 +88,9 @@ int main() {
 	(cmd[3] == 'N' || cmd[3] == 'n') &&
 	(cmd[4] == 'T' || cmd[4] == 't')) {
 
-      //char zeroes[6];
+      print(head, 0);
       
-      Node* n;
+      /*Node* n;
       Node* m;
       n = head;
       m = n;
@@ -105,7 +103,7 @@ int main() {
 	     << "ID: " << n->getNext()->getStudent()->getID() << endl
 	     << "GPA: " << n->getNext()->getStudent()->getGPA() << endl << endl;
 	m = n->getNext();
-      }
+      }*/
       
     }
 
@@ -134,12 +132,18 @@ void add(Node*& headr, Node* head, Node* newNode) {
   //"headr" is the head passed by reference, and head is headr passed by pointer. We will not be using "headr" until the insert function. "newNode" is the newNode which will be inserted.
   cout << head->getNext()->getStudent()->getID() << endl;
   
-  //Make all of this in a method for the order of the recursion!!!
+  //If next is the tail, or if newNode is in between this and next, insert
   if ((head->getNext()->getStudent()->getID() == -1) ||
-      (head->getNext()->getStudent()->getID() >= newNode->getStudent()->getID())) {
+      (head->getStudent()->getID() < newNode->getStudent()->getID() &&
+       head->getNext()->getStudent()->getID() > newNode->getStudent()->getID())) {
     cout << head->getNext()->getStudent()->getID() << ", insert"  << endl;
     /*cout << "if" << endl;*/
-    insert(headr, head, newNode);
+    //Insert
+    Node* temp = head->getNext();
+    newNode->setNext(temp);
+    head->setNext(newNode);
+    
+    cout << "Succ Cesspool" << endl;
   }
   else {
     cout << head->getNext()->getStudent()->getID() << ", again!"  << endl;
@@ -179,11 +183,15 @@ void add(Node*& headr, Node* head, Node* newNode) {
   */
 }
 
-//Credit to Nick Feng for showing me that using an insert method would be way easier than just hardcoding it like the champion that I am
-void insert(Node*& headr; Node* bef, Node* ins) {
-  //"ins" is the node which is going to be inserted into "bef". "af" is the node which used to be after "bef", and will now come after "ins". Then once that it done, it will all be put back into headr, which is the original head node. Then it will all disappear, as though it had never existed in the first place. OOOOoooooOOOOooooooOOOOOOOOOOOooooooo!
-  Node* af = bef->getNext();
-  cout << "Succ Cesspool" << endl;
+void print(Node* n, int iter) {
+  cout << "Student #" << ++iter << " -" << endl
+       << "Name: " << n->getStudent()->getName() << " " << n->getStudent()->getSurname() << endl
+       << "ID: " << n->getStudent()->getID() << endl
+       << "GPA: " << n->getStudent()->getGPA() << endl;
+
+  if (n->getNext()->getStudent()->getID() != -1) {
+    print(n->getNext(), iter);
+  }
 }
 
 /*
