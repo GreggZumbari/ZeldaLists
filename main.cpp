@@ -257,6 +257,7 @@ void del(Node* head, int id) {
   else if (head->getNext()->getStudent()->getID() == id) {
     //cout << head->getNext()->getStudent()->getID() << ", success"  << endl;
     //Delete
+    delete head->getNext(); 
     Node* temp = head->getNext()->getNext();
     head->setNext(temp);
     cout << "Student deleted." << endl;

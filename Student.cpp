@@ -12,7 +12,10 @@ Student::Student(int id) {
   this->id = id;
 }
 
-Student::~Student() {}
+Student::~Student() {
+    delete name;
+    delete surname;
+}
 
 void Student::setName(char* name) {
   /*char fullName[200];
