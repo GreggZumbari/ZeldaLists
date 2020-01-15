@@ -3,7 +3,7 @@ Much like the student lists program, except this one uses recursion to make many
 
 Made for Mr. Galbraith's C++ course at Sunset High School.
 
-You can compile this project using the following command:
+You can compile this project with the g++ compiler using the following command:
 
 g++ -o run.exe main.cpp Student.cpp Node.o
 
