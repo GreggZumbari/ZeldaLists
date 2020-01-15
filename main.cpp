@@ -40,6 +40,8 @@ int main() {
     cout << "> ";
     
     cin.getline(cmd, 100);
+
+    cout << "-----" << endl;
     
     //Another way to do what I just did: if (strcmp(input,"ADD")) {
     //Add command - Add a student to the list with specified parameters
@@ -54,15 +56,34 @@ int main() {
       float gpa;
 
       //Get parameters
-      cout << "-----" << endl;
       cout << "Student\'s first name: ";
       cin.getline(name, 100);
       
       cout << "Student\'s last name: ";
       cin.getline(surname, 100);
-      
-      cout << "Student ID: ";
-      cin >> id; cin.clear(); cin.ignore(100, '\n');
+
+      while (true) {
+	cout << "Student ID: ";
+	cin >> id; cin.clear(); cin.ignore(100, '\n');
+
+	bool r = false;
+	Node* n = head;
+        while (true) {
+	  if (n->getNext()->getStudent()->getID() == -1) {
+	    break;
+	  }
+	  else if (n->getNext()->getStudent()->getID() == id) {
+	    r = true;
+	    cout << "A student with that ID already exists! Please retype." << endl;
+	    break;
+	  }
+	  Node* t = n->getNext();
+	  n = t;
+	}
+	if (r == false) {
+	  break;
+	}
+      }
       
       cout << "Student GPA: ";
       cin >> gpa; cin.clear(); cin.ignore(100, '\n');
@@ -82,13 +103,18 @@ int main() {
     }
       
     //List all current students
-    if ((cmd[0] == 'P' || cmd[0] == 'p') &&
+    else if ((cmd[0] == 'P' || cmd[0] == 'p') &&
 	(cmd[1] == 'R' || cmd[1] == 'r') &&
 	(cmd[2] == 'I' || cmd[2] == 'i') &&
 	(cmd[3] == 'N' || cmd[3] == 'n') &&
 	(cmd[4] == 'T' || cmd[4] == 't')) {
 
-      print(head, 0);
+      if (head->getNext()->getStudent()->getID() != -1) {
+	print(head->getNext(), 0);
+      }
+      else {
+	cout << "EMPTY" << endl;
+      }
       
       /*Node* n;
       Node* m;
@@ -108,23 +134,28 @@ int main() {
     }
 
     //Delete a student
-    if ((cmd[0] == 'D' || cmd[0] == 'd') &&
+    else if ((cmd[0] == 'D' || cmd[0] == 'd') &&
 	(cmd[1] == 'E' || cmd[1] == 'e') &&
 	(cmd[2] == 'L' || cmd[2] == 'l') &&
 	(cmd[3] == 'E' || cmd[3] == 'e') &&
 	(cmd[4] == 'T' || cmd[4] == 't') &&
-	(cmd[5] == 'E' || cmd[5] == 'e')) {}
+	(cmd[5] == 'E' || cmd[5] == 'e')) {
+      
+    }
 
     //Kill the program
-    if ((cmd[0] == 'Q' || cmd[0] == 'q') &&
+    else if ((cmd[0] == 'Q' || cmd[0] == 'q') &&
 	(cmd[1] == 'U' || cmd[1] == 'u') &&
 	(cmd[2] == 'I' || cmd[2] == 'i') &&
 	(cmd[3] == 'T' || cmd[3] == 't')) {
       cout << endl << "Okay, bye. Thank you for donating to the Child Storage Association (CSA)!" << endl;
       return 0;
     }
+    else {
+      cout << "COMMAND NOT RECOGNIZED" << endl;
+    }
 
-    cout << "-----" << endl;
+    cout << "-----";
   }
 }
 
@@ -189,9 +220,9 @@ void print(Node* n, int iter) {
        << "ID: " << n->getStudent()->getID() << endl
        << "GPA: " << n->getStudent()->getGPA() << endl;
 
-  if (n->getNext()->getStudent()->getID() != -1) {
-    print(n->getNext(), iter);
-  }
+    if (n->getNext()->getStudent()->getID() != -1) {
+      print(n->getNext(), iter);
+    }
 }
 
 /*
